@@ -5,6 +5,11 @@
     </head>
     <body>
         <h1>Chat App</h1>
+        <form id='message-form'>
+            <h2>Send Message to Clients</h2>
+            <input name='message' placeholder="your message" />
+            <button type="submit" id='submit'>Send</button>
+        </form>
         <script src="/socket.io/socket.io.js"></script>
         <script src="/js/chat.js"></script>
     </body>

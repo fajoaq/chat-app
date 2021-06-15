@@ -12,8 +12,11 @@ const io = socketio(server);
 
 app.use(express.static(publicDir));
  
-io.on('connection', () => {
+io.on('connection', (socket) => {
   console.log("New websocket connection");
-})
+
+  socket.emit('message', "Welcome!");
+  socket.on('sendMessage', (message) => io.emit('message', message))
+});
 
 server.listen(port, () => console.log(`Server is up on port ${port}`));
