@@ -23,8 +23,7 @@ io.on('connection', (socket) => {
     const filter = new Filter();
 
     if(filter.isProfane(message, callback)) return callback("Profanity is not allowed");
-
-    io.emit('message', message);
+    else { callback(); }
   });
 
   socket.on('sendLocation', ({lat, long}, callback) => {
