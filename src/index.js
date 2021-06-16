@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 const socketio = require('socket.io');
 const M = require('minimatch');
+const Filter = require('bad-words');
 
 const port = process.env.PORT || 3000;
 const publicDir = path.join(__dirname, '../public');
@@ -19,11 +20,17 @@ io.on('connection', (socket) => {
   socket.broadcast.emit('message', "A new user has joined!");
 
   socket.on('sendMessage', (message, callback) => {
-    io.emit('message', message); 
-    callback("Delivered");
+    const filter = new Filter();
+
+    if(filter.isProfane(message, callback)) return callback("Profanity is not allowed");
+
+    io.emit('message', message);
   });
 
-  socket.on('sendLocation', ({lat, long}) => io.emit('message', `https://google.com/maps?q=${lat},${long}`));
+  socket.on('sendLocation', ({lat, long}, callback) => {
+    io.emit('message', `https://google.com/maps?q=${lat},${long}`);
+    callback();
+  });
   
   socket.on('disconnect', () => io.emit('message', "A client has left!"));
 });
