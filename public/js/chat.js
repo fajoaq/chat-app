@@ -6,8 +6,26 @@ const $messageFormInput = $messageForm.querySelector('input');
 const $messageFormButton = $messageForm.querySelector('button');
 const $sendLocationButton = document.querySelector('#send-location');
 const $messages = document.querySelector('#messages');
+
 //templates
 const messageTemplate = document.querySelector('#message-template').innerHTML;
+const locationTemplate = document.querySelector('#location-template').innerHTML;
+
+socket.on('message', (message) => {
+    const html = Mustache.render(messageTemplate, { message });
+
+    $messages.insertAdjacentHTML('beforeend', html)
+
+    console.log(message);
+});
+
+socket.on('locationMessage', (url) => {
+    const html = Mustache.render(locationTemplate, { url });
+
+    $messages.insertAdjacentHTML('beforeend', html);
+
+    console.log(url);
+})
 
 $messageForm.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -24,14 +42,6 @@ $messageForm.addEventListener('submit', (e) => {
         if(error) return console.log(error);
         else { console.log("Message delivert!"); }
     });
-});
-
-socket.on('message', (message) => {
-    const html = Mustache.render(messageTemplate, { message });
-
-    $messages.insertAdjacentHTML('beforeend', html)
-
-    console.log(message);
 });
 
 $sendLocationButton.addEventListener('click', () => {

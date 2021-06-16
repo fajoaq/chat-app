@@ -15,10 +15,10 @@ app.use(express.static(publicDir));
  
 io.on('connection', (socket) => {
   console.log("New websocket connection");
-
+  //MESSAGE
   socket.emit('message', "Welcome!");
   socket.broadcast.emit('message', "A new user has joined!");
-
+  //SENDMESSAGE
   socket.on('sendMessage', (message, callback) => {
     const filter = new Filter();
 
@@ -29,11 +29,12 @@ io.on('connection', (socket) => {
     }
   });
 
+  //SENDLOCATION
   socket.on('sendLocation', ({lat, long}, callback) => {
-    io.emit('message', `https://google.com/maps?q=${lat},${long}`);
+    io.emit('locationMessage', `https://google.com/maps?q=${lat},${long}`);
     callback();
   });
-  
+  //DISCONNECT
   socket.on('disconnect', () => io.emit('message', "A client has left!"));
 });
 
