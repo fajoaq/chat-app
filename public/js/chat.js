@@ -22,12 +22,15 @@ socket.on('message', ({ text, createdAt }) => {
     console.log(text, moment(createdAt).format('h:mm a'));
 });
 //LOCATION MESSAGE
-socket.on('locationMessage', (url) => {
-    const html = Mustache.render(locationTemplate, { url });
+socket.on('locationMessage', ({ url, createdAt }) => {
+    const html = Mustache.render(locationTemplate, { 
+        url, 
+        createdAt: moment(createdAt).format('h:mm a') 
+    });
 
     $messages.insertAdjacentHTML('beforeend', html);
 
-    console.log(url);
+    console.log(createdAt, url);
 });
 
 $messageForm.addEventListener('submit', (e) => {

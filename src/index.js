@@ -10,7 +10,7 @@ const publicDir = path.join(__dirname, '../public');
 const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
-const { generateMessage } = require('./utils/messages');
+const { generateMessage, generateLocationMessage } = require('./utils/messages');
 
 app.use(express.static(publicDir));
  
@@ -31,7 +31,7 @@ io.on('connection', (socket) => {
   });
   //SEND LOCATION
   socket.on('sendLocation', ({lat, long}, callback) => {
-    io.emit('locationMessage', `https://google.com/maps?q=${lat},${long}`);
+    io.emit('locationMessage', generateLocationMessage(`https://google.com/maps?q=${lat},${long}`));
     callback();
   });
   //DISCONNECT
