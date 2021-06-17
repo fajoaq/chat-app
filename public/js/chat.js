@@ -7,25 +7,28 @@ const $messageFormButton = $messageForm.querySelector('button');
 const $sendLocationButton = document.querySelector('#send-location');
 const $messages = document.querySelector('#messages');
 
-//templates
+//TEMPLATES
 const messageTemplate = document.querySelector('#message-template').innerHTML;
 const locationTemplate = document.querySelector('#location-template').innerHTML;
-
-socket.on('message', (message) => {
-    const html = Mustache.render(messageTemplate, { message });
+//MESSAGE
+socket.on('message', ({ text, createdAt }) => {
+    const html = Mustache.render(messageTemplate, { 
+        message: text,
+        createdAt: moment(createdAt).format('h:mm a')
+    });
 
     $messages.insertAdjacentHTML('beforeend', html)
 
-    console.log(message);
+    console.log(text, moment(createdAt).format('h:mm a'));
 });
-
+//LOCATION MESSAGE
 socket.on('locationMessage', (url) => {
     const html = Mustache.render(locationTemplate, { url });
 
     $messages.insertAdjacentHTML('beforeend', html);
 
     console.log(url);
-})
+});
 
 $messageForm.addEventListener('submit', (e) => {
     e.preventDefault();
