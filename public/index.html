@@ -23,9 +23,10 @@
         </script>
 
         <script id='location-template' type='text/html'>
-            <div>
-                <a href='{{ url }}' target='_blank'>{{ createdAt }} - My current location</a>
-            </div>
+            <p>
+                {{ createdAt }} -
+                <a href='{{ url }}' target='_blank'>My current location</a>
+            </p>
         </script>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.1/mustache.min.js" crossorigin="anonymous"></script>
