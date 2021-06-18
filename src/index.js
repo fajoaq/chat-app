@@ -2,7 +2,6 @@ const http = require('http')
 const express = require('express');
 const path = require('path');
 const socketio = require('socket.io');
-const M = require('minimatch');
 const Filter = require('bad-words');
 
 const port = process.env.PORT || 3000;
