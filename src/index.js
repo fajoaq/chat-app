@@ -16,7 +16,6 @@ const { addUser, getUser, removeUser, getUsersInRoom } = require('./utils/users'
 app.use(express.static(publicDir));
 //CONNECT
 io.on('connection', (socket) => {
-  console.log("New websocket connection");
   //JOIN ROOM
   socket.on('join', ({ username, room }, callback) => {
     const { error, user } = addUser({ id: socket.id, username, room });

@@ -45,8 +45,6 @@ socket.on('message', ({username, text, createdAt }) => {
 
     $messages.insertAdjacentHTML('beforeend', html);
     autoScroll();
-
-    console.log(text, moment(createdAt).format('h:mm a'));
 });
 //LOCATION MESSAGE
 socket.on('locationMessage', ({username, url, createdAt }) => {
@@ -58,8 +56,6 @@ socket.on('locationMessage', ({username, url, createdAt }) => {
 
     $messages.insertAdjacentHTML('beforeend', html);
     autoScroll();
-
-    console.log(createdAt, url);
 });
 //ROOM DATA
 socket.on('roomData', ({ room, users }) => {
@@ -80,7 +76,6 @@ $messageForm.addEventListener('submit', (e) => {
         $messageFormInput.focus();
 
         if(error) return console.log(error);
-        else { console.log("Message delivert!"); }
     });
 });
 
@@ -96,7 +91,6 @@ $sendLocationButton.addEventListener('click', () => {
                 long: position.coords.longitude
             }, () => {
                 $sendLocationButton.removeAttribute('disabled');
-                console.log("Location was shared!");
             });
         });
     }
