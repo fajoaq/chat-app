@@ -15,7 +15,7 @@ const locationTemplate = document.querySelector('#location-template').innerHTML;
 const { username, room } = Qs.parse(location.search, { ignoreQueryPrefix: true });
 
 //MESSAGE
-socket.on('message', ({ text, createdAt }, username) => {
+socket.on('message', ({username, text, createdAt }) => {
     const html = Mustache.render(messageTemplate, {
         username, 
         message: text,
@@ -27,7 +27,7 @@ socket.on('message', ({ text, createdAt }, username) => {
     console.log(text, moment(createdAt).format('h:mm a'));
 });
 //LOCATION MESSAGE
-socket.on('locationMessage', ({ url, createdAt }, username) => {
+socket.on('locationMessage', ({username, url, createdAt }) => {
     const html = Mustache.render(locationTemplate, {
         username, 
         url, 

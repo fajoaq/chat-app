@@ -15,10 +15,10 @@ const { addUser, getUser, removeUser, getUsersInRoom } = require('./utils/users'
 
 
 app.use(express.static(publicDir));
- 
+//CONNECT
 io.on('connection', (socket) => {
   console.log("New websocket connection");
-  //JOIN
+  //JOIN ROOM
   socket.on('join', ({ username, room }, callback) => {
     const { error, user } = addUser({ id: socket.id, username, room });
 
@@ -27,8 +27,8 @@ io.on('connection', (socket) => {
     socket.join(user.room)
 
     //welcome
-    socket.emit('message', generateMessage("Welcome!"), user.username);
-    socket.broadcast.to(user.room).emit('message', generateMessage( `${user.username} has joined ${user.room}`), user.username);
+    socket.emit('message', generateMessage("Chat App", "Welcome!"));
+    socket.broadcast.to(user.room).emit('message', generateMessage("Chat App", `${user.username} has joined ${user.room}`));
 
     callback(); // client was able to join succesfully, no error
   })
@@ -43,7 +43,7 @@ io.on('connection', (socket) => {
       else {
         io
         .to(user.room)
-        .emit('message', generateMessage(message), user.username);
+        .emit('message', generateMessage(user.username, message));
         callback(); //confirmation
       }
     }
@@ -55,7 +55,7 @@ io.on('connection', (socket) => {
     if(user) {
       io
       .to(user.room)
-      .emit('locationMessage', generateLocationMessage('https://google.com/maps?q', {lat, long}), user.username);
+      .emit('locationMessage', generateLocationMessage(user.username,'https://google.com/maps?q', {lat, long}));
       callback(); //confirmation
     }
   });
@@ -63,7 +63,7 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     const user = removeUser(socket.id);
 
-    if(user) io.to(user.room).emit('message', generateMessage(`${user.username} has left!`));
+    if(user) io.to(user.room).emit('message', generateMessage("Chat App", `${user.username} has left!`));
   });
 });
 
