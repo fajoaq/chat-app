@@ -10,12 +10,14 @@ const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
 const { generateMessage, generateLocationMessage } = require('./utils/messages');
-const { addUser, getUser, removeUser, getUsersInRoom } = require('./utils/users');
-
+const { addUser, getUser, removeUser, getUsersInRoom, getRooms, getUsers } = require('./utils/users');
 
 app.use(express.static(publicDir));
+
 //CONNECT
 io.on('connection', (socket) => {
+  //GET AVAILABLE ROOMS
+  socket.emit('joinForm', getRooms());
   //JOIN ROOM
   socket.on('join', ({ username, room }, callback) => {
     const { error, user } = addUser({ id: socket.id, username, room });

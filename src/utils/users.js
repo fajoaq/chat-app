@@ -34,10 +34,22 @@ const getUser = (id) => {
 const getUsersInRoom = (room) => {
     return users.filter((user) => user.room === room.toLowerCase());
 };
+//GET ROOMS
+const getRooms = () => {
+    let rooms = new Set();
+
+    users.forEach((user) => rooms.add({ room: user.room }));
+
+    return Array.from(rooms);
+};
+//GET USERS
+const getUsers = () => users;
 
 module.exports = {
     addUser,
     getUser,
     removeUser,
-    getUsersInRoom
+    getUsersInRoom,
+    getRooms,
+    getUsers
 }

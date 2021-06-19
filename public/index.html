@@ -9,16 +9,30 @@
         <div class="centered-form">
             <div class="centered-form__box">
                 <h1>Join!</h1>
-                <form action="./chat.html">
+                <form action="./chat.html" id="join-form">
                     <label>Display Name</label>
                     <input type="text" name="username" placeholder="Display name" required >
 
                     <label>Room</label>
-                    <input type="text" name="room" placeholder="Room name" required>
+                    <input id="selected-room" type="text" name="room" placeholder="Room name" required>
+
+                    <div id="room-selection"></div>
                     
                     <button>Join</button>
                 </form>
             </div>
         </div>
+
+        <script id="room-selection-template" type="text/html">
+            <select name="rooms">
+                {{#roomList}}
+                    <option value="{{ room }}">{{ room }}</option>
+                {{/roomList}}
+            </select>
+        </script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.1/mustache.min.js" crossorigin="anonymous"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="./js/join.js" type="module"></script>
     </body>
 </html>
