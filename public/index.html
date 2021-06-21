@@ -16,7 +16,7 @@
                     <label>Room</label>
                     <input id="selected-room" type="text" name="room" placeholder="Room name" required>
 
-                    <div id="room-selection"></div>
+                    <select name="rooms" id="open-rooms-dropdown"></select>
                     
                     <button>Join</button>
                 </form>
@@ -24,12 +24,10 @@
         </div>
 
         <script id="room-selection-template" type="text/html">
-            <select name="rooms" id="open-rooms-dropdown">
-                <option value="" selected disabled hidden>Open Chat Rooms</option>
-                {{#roomList}}
-                    <option value="{{ room }}">{{ room }}</option>
-                {{/roomList}}
-            </select>
+            <option value="" selected disabled hidden>Open Chat Rooms</option>
+            {{#roomList}}
+                <option value="{{ room }}">{{ room }}</option>
+            {{/roomList}}
         </script>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.1/mustache.min.js" crossorigin="anonymous"></script>
