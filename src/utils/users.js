@@ -37,10 +37,12 @@ const getUsersInRoom = (room) => {
 //GET ROOMS
 const getRooms = () => {
     let rooms = new Set();
+    let uniqueRooms = [];
 
-    users.forEach((user) => rooms.add({ room: user.room }));
+    users.forEach((user) => rooms.add(user.room)); //get unique rooms
+    rooms.forEach((room) => uniqueRooms.push({ room })); //convert to object
 
-    return Array.from(rooms);
+    return uniqueRooms;
 };
 //GET USERS
 const getUsers = () => users;
