@@ -78,11 +78,10 @@ button:disabled {
     width: 100%;
 }
 
-.centered-form input {
+.centered-form input, .centered-form select {
     margin-bottom: 16px;
     width: 100%;
 }
-
 /* Chat Page Layout */
 
 .chat {
