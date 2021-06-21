@@ -24,7 +24,8 @@
         </div>
 
         <script id="room-selection-template" type="text/html">
-            <select name="rooms">
+            <select name="rooms" id="open-rooms-dropdown">
+                <option value="" selected disabled hidden>Open Chat Rooms</option>
                 {{#roomList}}
                     <option value="{{ room }}">{{ room }}</option>
                 {{/roomList}}
